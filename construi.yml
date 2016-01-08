@@ -1,0 +1,21 @@
+image: lstephen/docker-push:8
+
+default: build
+
+environment:
+  - DOCKER_PUSH_NAME=lstephen/versiune
+  - DOCKER_PUSH_EMAIL=levi.stephen@gmail.com
+  - DOCKER_PUSH_USERNAME
+  - DOCKER_PUSH_PASSWORD
+
+volumes:
+  - /var/run/docker.sock:/var/run/docker.sock
+
+targets:
+  build: build
+
+  release:
+    volumes:
+      - $GIT_SSH_KEY:/ssh/id_rsa
+    run: build release
+
