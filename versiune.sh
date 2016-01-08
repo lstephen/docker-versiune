@@ -2,6 +2,14 @@
 
 set -e
 
+function txt {
+  echo $version > $output
+}
+
+function python {
+  echo "__version__ = '$version'" > $output
+}
+
 version=$(git log --oneline --first-parent master | wc -l | xargs)
 
 branch=$(git branch | grep '*')
@@ -12,5 +20,20 @@ then
   version="$version.dev$branch_count"
 fi
 
-echo $version
+format=txt
+
+while getopts "f:" opt
+do
+  case $opt in
+    f)
+      format=$OPTARG
+      ;;
+  esac
+done
+
+shift $((OPTIND-1))
+
+output=${1-/dev/stdout}
+
+$format
 
