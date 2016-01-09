@@ -1,4 +1,4 @@
-image: lstephen/docker-push:8
+image: lstephen/docker-push:9
 
 default: build
 
@@ -19,6 +19,8 @@ targets:
   build: build
 
   release:
+    before:
+      - version
     volumes:
       - $GIT_SSH_KEY:/ssh/id_rsa
     run: build release
