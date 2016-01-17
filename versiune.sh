@@ -27,7 +27,7 @@ function format_python {
   echo "__version__ = '$version'"
 }
 
-version=$(git log --oneline --first-parent master | wc -l | xargs)
+version=$(git log --oneline --first-parent origin/master | wc -l | xargs)
 
 branch=$(git branch | grep '*')
 
