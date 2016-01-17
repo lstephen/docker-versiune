@@ -2,12 +2,29 @@
 
 set -e
 
-function txt {
-  echo $version > $output
+format=txt
+template=\$version
+
+while getopts "f:t:" opt
+do
+  case $opt in
+    f)
+      format=$OPTARG
+      ;;
+    t)
+      template=$OPTARG
+      ;;
+  esac
+done
+
+shift $((OPTIND-1))
+
+function format_txt {
+  echo $version
 }
 
-function python {
-  echo "__version__ = '$version'" > $output
+function format_python {
+  echo "__version__ = '$version'"
 }
 
 version=$(git log --oneline --first-parent master | wc -l | xargs)
@@ -20,20 +37,11 @@ then
   version="$version.dev$branch_count"
 fi
 
-format=txt
-
-while getopts "f:" opt
-do
-  case $opt in
-    f)
-      format=$OPTARG
-      ;;
-  esac
-done
-
-shift $((OPTIND-1))
+version=$(eval "echo $template")
 
 output=${1-/dev/stdout}
 
-$format
+exec > $output
+
+"format_$format"
 
