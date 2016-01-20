@@ -3,13 +3,17 @@
 set -e
 
 format=txt
+module=UNKNOWN
 template=\$version
 
-while getopts "f:t:" opt
+while getopts "f:m:t:" opt
 do
   case $opt in
     f)
       format=$OPTARG
+      ;;
+    m)
+      module=$OPTARG
       ;;
     t)
       template=$OPTARG
@@ -27,6 +31,14 @@ function format_python {
   echo "__version__ = '$version'"
 }
 
+function format_ruby {
+  cat << EOF
+module $module
+  VERSION = "$version"
+end
+EOF
+}
+
 version=$(git log --oneline --first-parent origin/master | wc -l | xargs)
 
 branch=$(git branch | grep '*')
@@ -40,6 +52,8 @@ fi
 version=$(eval "echo $template")
 
 output=${1-/dev/stdout}
+
+mkdir -p $(dirname $output)
 
 exec > $output
 
