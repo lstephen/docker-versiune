@@ -15,7 +15,7 @@ stage 'Build'
 node('construi') {
   checkout scm
 
-  git log --oneline --first-parent origin/master
+  sh 'git log --oneline --first-parent origin/master'
 
   construi 'versiune'
 
