@@ -12,7 +12,7 @@ volumes:
   - /var/run/docker.sock:/var/run/docker.sock
 
 targets:
-  version:
+  versiune:
     build: .
     run: VERSION
 
@@ -20,7 +20,7 @@ targets:
 
   release:
     before:
-      - version
+      - versiune
     volumes:
       - $GIT_SSH_KEY:/ssh/id_rsa
     run: build release
