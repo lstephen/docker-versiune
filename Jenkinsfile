@@ -14,17 +14,15 @@ def construi(target) {
 stage 'Build'
 node('construi') {
   checkout scm
-
-  sh 'git log --oneline --first-parent origin/master'
-
-  construi 'versiune'
-
   construi 'build'
 }
 
 if (env.BRANCH_NAME == 'master') {
-  stage 'Release'
+  stage name: 'Release', concurrency: 1
   node('construi') {
+    checkout scm
+    sh 'git checkout origin/master'
+
     construi 'versiune'
     currentBuild.description = "Release v${readFile('VERSION')}"
 
