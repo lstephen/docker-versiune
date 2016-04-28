@@ -41,8 +41,6 @@ EOF
 
 version=$(git log --oneline --first-parent master | wc -l | xargs)
 
-branch=$(git branch | grep '*')
-
 if [[ ! $branch =~ master$ ]]
 then
   branch_count=$[$(git log --oneline --first-parent | wc -l | xargs) - $version]
