@@ -39,7 +39,7 @@ end
 EOF
 }
 
-version=$(git log --oneline --first-parent master | wc -l | xargs)
+version=$(git log --oneline --first-parent origin/master | wc -l | xargs)
 
 if [[ ! $branch =~ master$ ]]
 then
