@@ -23,5 +23,5 @@ targets:
       - versiune
     volumes:
       - $GIT_SSH_KEY:/ssh/id_rsa
-    run: build release
+    run: release
 
