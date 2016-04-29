@@ -39,12 +39,20 @@ end
 EOF
 }
 
-version=$(git log --oneline --first-parent origin/master | wc -l | xargs)
+#sha_is_on_master=$(git branch -r --contains $sha | grep origin/master)
 
-if [[ ! $branch =~ master$ ]]
+
+current_sha=$(git rev-parse HEAD)
+master_sha=$(git merge-base origin/master $current_sha)
+
+master_version=$(git log --format=%H --first-parent origin/master | sed -n "/$master_sha/,\$p" | wc -l | xargs)
+timestamp=$(date +%Y.%m.%d_%H.%M)
+
+if [[ $current_sha == $master_sha ]]
 then
-  branch_count=$[$(git log --oneline --first-parent | wc -l | xargs) - $version]
-  version="$version.dev$branch_count"
+  version=$master_version
+else
+  version="${master_version}.${timestamp}"
 fi
 
 version=$(eval "echo $template")
