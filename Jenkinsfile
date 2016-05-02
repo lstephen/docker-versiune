@@ -18,10 +18,9 @@ node('construi') {
 }
 
 if (env.BRANCH_NAME == 'master') {
-  stage name: 'Release', concurrency: 1
+  stage 'Release'
   node('construi') {
     checkout scm
-    sh 'git checkout origin/master'
 
     construi 'versiune'
     currentBuild.description = "Release v${readFile('VERSION')}"
