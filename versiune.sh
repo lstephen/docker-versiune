@@ -46,7 +46,7 @@ current_sha=$(git rev-parse HEAD)
 master_sha=$(git merge-base origin/master $current_sha)
 
 master_version=$(git log --format=%H --first-parent origin/master | sed -n "/$master_sha/,\$p" | wc -l | xargs)
-timestamp=$(date +%Y.%m.%d_%H.%M)
+timestamp=$(date +%Y%m%d.%H%M)
 
 if [[ $current_sha == $master_sha ]]
 then
