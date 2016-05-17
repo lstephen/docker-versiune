@@ -41,7 +41,6 @@ EOF
 
 #sha_is_on_master=$(git branch -r --contains $sha | grep origin/master)
 
-git fetch -q origin master
 
 current_sha=$(git rev-parse HEAD)
 master_sha=$(git merge-base origin/master $current_sha)
