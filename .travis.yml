@@ -1,15 +1,21 @@
 sudo: required
+
 language: generic
+
 env:
   global:
   - DOCKER_PUSH_USERNAME=lstephen
   - secure: eOsG+TlLJzDeXU9ucNtiqILDrQd61plKBq2rqRS6cxmK66YiOaxNmPTerGEm0h8dZCehd0VMnEB26aWOSDV0jzmdukSXA6GvqRWnRuwubaZ6nMzcnMiAM0d+woi+fFPa0bu094QcY/8sMGcYAmzFyCztUflx6qFR+T7iUr3iwJFJfP7hQIlFg6RvEjARxnUVMQQH/j63iRK9jb5lDVj81ezaiJLKc0AwkgYq9/D1tutUqBU61sRofF//XtQk42JUNQ7WGT7gETRFJims+Y+rYYaetmPq4EG7PNhEsMhhESfPbd8BAp167xfG5tmVkCSsRtzuLK1LhJWj1bkxa7fG8IgILDUWx1QfQFUMrNT7y8ZmM+bDZ9g7gZQsgz/RrGgWsbv1gH4T3XkDxzJQsBM507jwA9QQuZr9xopKjGgJtgPqJxWiZnWAoEKWrnd9xOwdc0T8FyFK0lswUgwLSeIMSXn2IRU0obNGW8pDIrHwD6i2rQjCuVp9r2enjHvigB8urdQ6NooL94tmy9tynIiSjV5kJMB8vinmPAGwGRYfLgtTGJeM3OW4PRwZm1KLe/aTLMuNrhTB4y2tfog2Fik5+I4BFMAxllnFdApIBQp6ENzsqZ6nWVbzgNJvmRJ3oi1wjEoiX7jF6MQqpINcoM6+AE09ybng+mOLE2Im+fRHSxQ=
+
 services:
 - docker
+
 before_install:
 - pip install --user construi
+
 script:
 - construi build
+
 deploy:
   provider: script
   script: construi release
