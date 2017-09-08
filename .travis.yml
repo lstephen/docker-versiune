@@ -10,3 +10,9 @@ before_install:
 
 script:
 - construi build
+
+deploy:
+  provider: script
+  script: construi release
+  on:
+    tags: true
