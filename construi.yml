@@ -19,6 +19,7 @@ targets:
     before:
       - versiune
     run:
+      - /bin/sh -c "echo $DOCKER_PUSH_USERNAME"
       - /bin/sh -c "docker build -t $DOCKER_PUSH_NAME:$(cat VERSION) ."
 
   release:
