@@ -39,9 +39,6 @@ end
 EOF
 }
 
-#sha_is_on_master=$(git branch -r --contains $sha | grep origin/master)
-
-
 version=$(git describe --dirty --tags)
 
 version=$(eval "echo $template")
