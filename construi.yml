@@ -19,13 +19,13 @@ targets:
     before:
       - versiune
     run:
-      - /bin/sh -c "echo $DOCKER_PUSH_USERNAME"
       - /bin/sh -c "docker build -t $DOCKER_PUSH_NAME:$(cat VERSION) ."
 
   release:
     before:
       - versiune
     run:
+      - /bin/sh -c "echo $DOCKER_PUSH_USERNAME"
       - /bin/sh -c "docker login -u '$DOCKER_PUSH_USERNAME' -p '$DOCKER_PUSH_PASSWORD'"
       - /bin/sh -c "docker tag -f $DOCKER_PUSH_NAME:$(cat VERSION) $DOCKER_PUSH_NAME:latest"
       - /bin/sh -c "docker push $DOCKER_PUSH_NAME:$(cat VERSION)"
