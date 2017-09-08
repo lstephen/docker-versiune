@@ -1,4 +1,4 @@
-image: lstephen/docker-push:9
+image: docker:17.07.0-ce
 
 default: build
 
@@ -16,12 +16,20 @@ targets:
     build: .
     run: VERSION
 
-  build: build
+  build:
+    before:
+      - versiune
+    run:
+      - /bin/sh -c "docker build -t $DOCKER_PUSH_NAME:$(cat VERSION) ."
 
   release:
     before:
       - versiune
     volumes:
       - $GIT_SSH_KEY:/ssh/id_rsa
-    run: release
+    run:
+      - /bin/sh -c "docker login -u '$DOCKER_PUSH_USERNAME' -p '$DOCKER_PUSH_PASSWORD' -e 'DOCKER_PUSH_EMAIL'"
+      - /bin/sh -c "docker tag -f $DOCKER_PUSH_NAME:$(cat VERSION) $DOCKER_PUSH_NAME:latest"
+      - /bin/sh -c "docker push $DOCKER_PUSH_NAME:$(cat VERSION)"
+      - /bin/sh -c "docker push $DOCKER_PUSH_NAME:latest"
 
