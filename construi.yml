@@ -4,7 +4,6 @@ default: build
 
 environment:
   - DOCKER_PUSH_NAME=lstephen/versiune
-  - DOCKER_PUSH_EMAIL=levi.stephen@gmail.com
   - DOCKER_PUSH_USERNAME
   - DOCKER_PUSH_PASSWORD
 
@@ -26,7 +25,7 @@ targets:
     before:
       - versiune
     run:
-      - /bin/sh -c "docker login -u '$DOCKER_PUSH_USERNAME' -p '$DOCKER_PUSH_PASSWORD' -e 'DOCKER_PUSH_EMAIL'"
+      - /bin/sh -c "docker login -u '$DOCKER_PUSH_USERNAME' -p '$DOCKER_PUSH_PASSWORD'"
       - /bin/sh -c "docker tag -f $DOCKER_PUSH_NAME:$(cat VERSION) $DOCKER_PUSH_NAME:latest"
       - /bin/sh -c "docker push $DOCKER_PUSH_NAME:$(cat VERSION)"
       - /bin/sh -c "docker push $DOCKER_PUSH_NAME:latest"
