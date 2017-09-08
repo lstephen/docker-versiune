@@ -1,7 +1,7 @@
-FROM debian:jessie
+FROM alpine:3.6
 MAINTAINER Levi Stephen <levi.stephen@gmail.com>
 
-RUN apt-get update && apt-get -y install curl git
+RUN apk add --no-cache bash git
 
 ADD versiune.sh /usr/local/bin/versiune.sh
 RUN chmod +x /usr/local/bin/versiune.sh
